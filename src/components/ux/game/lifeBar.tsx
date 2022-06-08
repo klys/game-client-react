@@ -14,7 +14,7 @@ const LifeBar = () => {
     
 
     socket.on("playerHurt", (data:any) => {
-        console.log("playerHurt received!!", data)
+        //console.log("playerHurt received!!", data)
         if (socket.id === data.playerId) setLife(data.life)
     })
 

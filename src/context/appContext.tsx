@@ -54,27 +54,27 @@ const reducer = (state:any, action:any) => {
         case actions.CONNECT:
             return {
                 ...state,
-                socket: io('http://localhost:3001')
+                socket: io('https://game-server-socketio.herokuapp.com/')
             }
         case actions.ADD_PLAYER:
-            console.log("action.playerData:", action.playerData);
-            console.log("state.playersIds[action.playerData.playerId]: ", state.playersIds[action.playerData.playerId])
+            //console.log("action.playerData:", action.playerData);
+            //console.log("state.playersIds[action.playerData.playerId]: ", state.playersIds[action.playerData.playerId])
 
             if (state.playersIds[action.playerData.playerId] === undefined) {
                 state.players.push({jsx:<Ship playerInfo={action.playerData} key={action.playerData.playerId} />, ...action.playerData})
                 state.playersIds[action.playerData.playerId] = state.players.length - 1;
             }
-            console.log("state.players: ", state.players);
-            console.log("state.playersIds: ", state.playersIds);
+            //console.log("state.players: ", state.players);
+            //console.log("state.playersIds: ", state.playersIds);
             return {
                 ...state,
                 players: state.players,
                 playersIds: state.playersIds
             }
         case actions.REMOVE_PLAYER:
-            console.log("action on REMOVE_PLAYER: ", action)
+            //console.log("action on REMOVE_PLAYER: ", action)
             if (state.playersIds[action.playerId] !== undefined) {
-                console.log("REMOVE_PLAYER SUCCESFULL")
+                //console.log("REMOVE_PLAYER SUCCESFULL")
                 state.players.splice(state.playersIds[action.playerId], 1)
                 delete state.playersIds[action.playerId]
             }
@@ -135,7 +135,7 @@ const reducer = (state:any, action:any) => {
                 pointerAngle:action.pointerAngle
             }
         case actions.SET_LIFE: // not working
-            console.log("action.SET_LIFE on execution! ", action.life)
+            //console.log("action.SET_LIFE on execution! ", action.life)
             return {
                 ...state,
                 life:action.life
@@ -174,7 +174,7 @@ export const Provider = ({ children }:{children:any}) => {
         },
         addPlayer: (playerData:any) => {
             dispatch({ type: actions.ADD_PLAYER, playerData })
-            console.log("players map: ", state.players)
+            //console.log("players map: ", state.players)
         },
         removePlayer: (playerId:any) => {
             dispatch({ type: actions.REMOVE_PLAYER, playerId })
@@ -183,7 +183,7 @@ export const Provider = ({ children }:{children:any}) => {
             dispatch({ type: actions.MOVE_PLAYER, playerData })
         },
         addProjectil: (projectilData:any) => {
-            console.log("projectil add")
+            //console.log("projectil add")
             dispatch({type: actions.ADD_PROJECTIL, projectilData})
         },
         moveProjectil: (projectilData:any) => {
@@ -202,7 +202,7 @@ export const Provider = ({ children }:{children:any}) => {
             dispatch({type: actions.SET_POINTERANGLE, pointerAngle})
         },
         setLife: (life:number) => {
-            console.log("Dispatching setLife")
+            //console.log("Dispatching setLife")
             dispatch({type: actions.SET_LIFE, life})
         },
         startWait: () => {

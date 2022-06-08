@@ -16,10 +16,10 @@ const Network = () => {
 
         socket.on("addPlayer", (data:any) => {
 
-            console.log("addPlayer", data)
+            //console.log("addPlayer", data)
             addPlayer(data)
             if (data.playerId == socket.id) {
-                console.log("SETTING LIFE OF PLAYER TO FULL LIFE")
+                //console.log("SETTING LIFE OF PLAYER TO FULL LIFE")
                 setLife(100)
             }
 
@@ -30,7 +30,7 @@ const Network = () => {
         })
 
         socket.on("shotProjectil", (data:any) => {
-            console.log("shotProjectil",data)
+            //console.log("shotProjectil",data)
             addProjectil(data)
         })
 
@@ -44,13 +44,13 @@ const Network = () => {
         })
 
         socket.on("playerDeath", (data:any) => {
-            console.log(`player:${data.playerId} has die!`)
+            //console.log(`player:${data.playerId} has die!`)
             if (data.playerId == socket.id) startWait()
 
         })
 
         socket.on("playerReborn", (data:any) => {
-            console.log("playerReborn")
+            //console.log("playerReborn")
             if (data.playerId == socket.id) stopWait()
         })
         
