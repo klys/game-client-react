@@ -21,7 +21,7 @@ export type InitialStateType = {
 }
 
 const InitialState = {
-    socket: io('http://127.0.0.1:3001'),
+    socket: io('https://game-server-socketio.herokuapp.com/'),
     players: [],
     //playersIds: {},
     projectiles:[],
