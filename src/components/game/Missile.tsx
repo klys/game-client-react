@@ -1,13 +1,30 @@
+import {useState, useContext, useEffect, useCallback} from "react"
 
+import { AppContext } from "../../context/appContext"
 
 const Missile = (props:any) => {
-  
+  const {socket} = useContext(AppContext)
+  const [pos, setPos] = useState({x:0,y:0})
+
+  const socketMoveProjectil = useCallback((data:any) => {
+    //console.log("moveProjectil", data)
+    setPos({x:data.x, y:data.y})
+    // projectils[data.id] = data;
+    // setProjectils(projectils)
+},[])
+
+useEffect(() => {
+  socket.on("moveProjectil"+props.data.id, socketMoveProjectil)
+  return(()=>{
+    socket.off("moveProjectil"+props.data.id)
+  })
+},[])
   return (<>
     <div
       style={{
         position: "absolute",
-        top: props.data.y+"px",
-        left: props.data.x+"px",
+        top: pos.y+"px",
+        left: pos.x+"px",
         zIndex: 999,
       }}
     >

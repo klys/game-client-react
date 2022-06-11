@@ -46,14 +46,13 @@ const UserControl = () => {
         if (waiting) return;
         if ((event.key == "q")) {
             
-            //console.log("Pressing Q")
-            const myId = playersIds[socket.id];
+            console.log("Pressing Q")
+            //const myId = playersIds[socket.id];
             //console.log("pos player: x"+players[myId].x+", y:"+players[myId].y)
 
             const shotProjectileData = {
-                x: players[myId].x,
-                y: players[myId].y,
-                angle:pointerAngle,//point_direction(players[myId].x,players[myId].y,mouse.x, mouse.y),
+                mouse_x:mouse.x,
+                mouse_y:mouse.y,//point_direction(players[myId].x,players[myId].y,mouse.x, mouse.y),
                 who:socket.id
             }
 

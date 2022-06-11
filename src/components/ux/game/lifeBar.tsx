@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react'
+import {useContext, useState, useEffect, useCallback} from 'react'
 
 import { AppContext } from '../../../context/appContext'
 
@@ -11,16 +11,26 @@ import { AppContext } from '../../../context/appContext'
 const LifeBar = () => {
     const { socket } = useContext(AppContext)
     const [life, setLife] = useState(100)
-    
 
-    socket.on("playerHurt", (data:any) => {
+
+    const socketPlayerHurt = useCallback((data:any) => {
         //console.log("playerHurt received!!", data)
         if (socket.id === data.playerId) setLife(data.life)
-    })
+    },[])
 
-    socket.on("playerReborn", (data:any) => {
+    const socketPlayerDeath = useCallback((data:any) => {
+        if (socket.id === data.playerId) setLife(0)
+    },[])
+
+    const socketPlayerReborn = useCallback((data:any) => {
         if (socket.id === data.playerId) setLife(100)
-    })
+    },[])
+
+    socket.on("playerHurt", socketPlayerHurt)
+
+    socket.on("playerDeath", socketPlayerDeath)
+
+    socket.on("playerReborn", socketPlayerReborn)
   
 
     //const life = useRef(useContext(AppContext));
